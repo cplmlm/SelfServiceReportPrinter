@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 标题栏样式 -->
+    <Style TargetType="Border" x:Key="TitleBarStyle">
+        <Setter Property="Background" Value="#62bdca"/>
+        <Setter Property="Padding" Value="10"/>
+        <!--<Setter Property="Margin"  Value="0,20,0,0"/>-->
+    </Style>
+    <!-- 输入框样式 -->
+    <Style TargetType="TextBox" x:Key="InputBoxStyle">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+    <!-- 数字按钮样式 -->
+    <Style TargetType="Button" x:Key="NumberButtonStyle">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="35"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" 
+                           CornerRadius="15"
+                           Background="{TemplateBinding Background}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#FFBEE6FD"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#FFC4E5F6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="Button" x:Key="GreenButtonStyle" BasedOn="{StaticResource NumberButtonStyle}">
+        <Setter Property="Background" Value="#62bdca"/>
+        <Setter Property="Foreground" Value="#ffffff"/>
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+    
+    <Style TargetType="Button" x:Key="RedButtonStyle" BasedOn="{StaticResource NumberButtonStyle}">
+        <Setter Property="Background" Value="#ff0000"/>
+        <Setter Property="Foreground" Value="#ffffff"/>
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+</ResourceDictionary>
