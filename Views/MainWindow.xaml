@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:selfservicereportprinter="clr-namespace:SelfServiceReportPrinter"      
-        xmlns:helper="clr-namespace:SelfServiceReportPrinter.ViewModel" 
+        xmlns:vm="clr-namespace:SelfServiceReportPrinter.ViewModels" 
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
-        xmlns:local="clr-namespace:SelfServiceReportPrinter"   
+        xmlns:local="clr-namespace:SelfServiceReportPrinter.Views"       
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
         AllowsTransparency="True"
         WindowStyle="None"
         Title="MainWindow" 
@@ -17,10 +18,8 @@
         <Grid.Background>
             <ImageBrush ImageSource="pack://application:,,,/Images/background.png"   Stretch="UniformToFill"/>
         </Grid.Background>
-        <!-- 标题栏（医院名称+功能按钮） -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="120" />
+            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0"  Style="{StaticResource TitleBarStyle}" >
@@ -32,44 +31,18 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"  VerticalAlignment="Center" Text="神马医院" FontSize="18" Foreground="White"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="自助报告打印系统"  FontSize="28" Foreground="White"/>
-                <Button Grid.Column="2" Content="打印" Background="#62bdca" Foreground="White"   FontSize="14" Width="60" Height="30" />
+                <!--<Button Grid.Column="2" Content="打印" Background="#62bdca" Foreground="White"   FontSize="14" Width="60" Height="30" Command="{Binding PrintCommand}"/>-->
             </Grid>
         </Border>
-        <StackPanel Grid.Row="1"    Margin="20">
-            <TextBox    x:Name="CardNumberTextBox"   local:TextBoxSelectionHelper.SelectionStart="{Binding SelectionStart, Mode=TwoWay}" Height="40"   Text="{Binding CardNumber}"    Width="460" />
-            <TextBlock  Text="支持身份证/就诊卡号" HorizontalAlignment="Center" FontSize="14"  Margin="0,10,0,0" />
-        </StackPanel>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <WrapPanel HorizontalAlignment="Center" Grid.Row="0" >
-                <Button  Content="1" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="1"/>
-                <Button  Content="2" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="2"/>
-                <Button  Content="3" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="3"/>
-                <Button  Content="查询"  Style="{StaticResource GreenButtonStyle}" />
-            </WrapPanel>
-            <WrapPanel HorizontalAlignment="Center" Grid.Row="1" >
-                <Button  Content="4" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="4"/>
-                <Button  Content="5" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="5"/>
-                <Button  Content="6" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="6"/>
-                <Button  Content="读卡"  Style="{StaticResource GreenButtonStyle}" />
-            </WrapPanel>
-            <WrapPanel HorizontalAlignment="Center" Grid.Row="2" >
-                <Button  Content="7" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="7"/>
-                <Button  Content="8" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="8"/>
-                <Button  Content="9" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="9"/>
-                <Button  Content="-" Style="{StaticResource NumberButtonStyle}"/>
-            </WrapPanel>
-            <WrapPanel HorizontalAlignment="Center" Grid.Row="3" >
-                <Button  Content="X" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="X"/>
-                <Button  Content="0" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}"  CommandParameter="0"/>
-                <Button  Content="删除" Style="{StaticResource RedButtonStyle}" Command="{Binding DeleteCommand}"   />
-                <Button  Content="清空" Style="{StaticResource RedButtonStyle}" Command="{Binding ClearCommand}"   />
-            </WrapPanel>
-        </Grid>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:KeyPressViewModelCommunityToolkit}">
+                    <local:Home />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:PrintViewModel}">
+                    <local:Print />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </Window>

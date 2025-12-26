@@ -55,4 +55,6 @@
         <Setter Property="Foreground" Value="#ffffff"/>
         <Setter Property="FontSize" Value="24"/>
     </Style>
+
+  
 </ResourceDictionary>

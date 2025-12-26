@@ -32,7 +32,7 @@ namespace SelfServiceReportPrinter.ViewModel
         }
 
         /// <summary>
-        /// 数字按钮绑定事件
+        /// Gets 数字按钮绑定事件
         /// </summary>
         public ICommand NumberCommand
         {
@@ -70,10 +70,11 @@ namespace SelfServiceReportPrinter.ViewModel
         /// </summary>
         private void Clear()
         {
-            CardNumber = string.Empty;
+            this.CardNumber = string.Empty;
         }
+
         /// <summary>
-        /// 删除点击事件
+        /// 删除点击事件.
         /// </summary>
         private void Delete()
         {
@@ -82,8 +83,9 @@ namespace SelfServiceReportPrinter.ViewModel
             {
                 CardNumber = CardNumber.Remove(SelectionStart - 1, 1);
             }
-            //光标没有在输入框时，删除最后一个字符
-            if (SelectionStart == 0)
+
+            // 光标没有在输入框时，删除最后一个字符
+            if (this.SelectionStart == 0)
             {
                 CardNumber = CardNumber.Remove(CardNumber.Length - 1, 1);
             }

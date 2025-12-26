@@ -1,15 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SelfServiceReportPrinter.Helper;
+using SelfServiceReportPrinter.Services;
 
-namespace SelfServiceReportPrinter.ViewModel;
+namespace SelfServiceReportPrinter.ViewModels;
 
-public partial class KeyPressViewModelCommunityToolkit : ObservableObject
+public partial class KeyPressViewModelCommunityToolkit : ViewModelBase
 {
+    private readonly NavigationService navigationService;
+    private readonly ReportService reportService;
+
+
+    public KeyPressViewModelCommunityToolkit(NavigationService navigationService,ReportService reportService)
+    {
+        this.navigationService = navigationService;
+        this.reportService = reportService;
+    }
     [ObservableProperty]
     private string cardNumber = string.Empty;
 
     [ObservableProperty]
     private int selectionStart;
+
 
     /// <summary>
     /// 数字点击事件
@@ -46,5 +58,15 @@ public partial class KeyPressViewModelCommunityToolkit : ObservableObject
         {
             CardNumber = CardNumber.Remove(CardNumber.Length - 1, 1);
         }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="page"></param>
+    [RelayCommand]
+    private void Print()
+    {
+        reportService.CardNumber = CardNumber;
+        navigationService.NavigateTo<PrintViewModel>();
     }
 }
